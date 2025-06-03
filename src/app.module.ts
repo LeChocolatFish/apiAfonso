@@ -3,10 +3,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EstoqueModule } from './estoque/estoque.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  //falha de segurança abaixo, não colocar a url diretamente assim, ela deve ser colocada no .env
-  imports: [MongooseModule.forRoot('mongodb+srv://Eu:glor1aaDeus_@testedemongo.3uxg7mk.mongodb.net/?retryWrites=true&w=majority&appName=TesteDeMongo'),EstoqueModule],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI', { infer: true }),
+      }),
+      inject: [ConfigService],
+    }),
+    EstoqueModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
