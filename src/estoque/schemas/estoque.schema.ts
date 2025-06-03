@@ -10,10 +10,13 @@ export class Estoque {
   name: string;
 
   @Prop()
-  price: number;
+  preco: number;
 
   @Prop()
-  description: string;
+  descricao: string;
+
+  @Prop()
+  quantidade: number;
 }
 
 export const EstoqueSchema = SchemaFactory.createForClass(Estoque);

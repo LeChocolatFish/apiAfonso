@@ -8,27 +8,27 @@ export class EstoqueController {
   constructor(private readonly estoqueService: EstoqueService) {}
 
   @Post()
-  create(@Body() createEstoqueDto: CreateEstoqueDto) {
+  async create(@Body() createEstoqueDto: CreateEstoqueDto) {
     return this.estoqueService.create(createEstoqueDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.estoqueService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estoqueService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return this.estoqueService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstoqueDto: UpdateEstoqueDto) {
-    return this.estoqueService.update(+id, updateEstoqueDto);
+  async update(@Param('id') id: string, @Body() updateEstoqueDto: UpdateEstoqueDto) {
+    return this.estoqueService.update(id, updateEstoqueDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estoqueService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.estoqueService.remove(id);
   }
 }
